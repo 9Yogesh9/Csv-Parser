@@ -1,0 +1,16 @@
+{
+  "name": "csv-parser",
+  "version": "1.0.0",
+  "description": "upload a csv file and get it in table format on frontend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Yogesh Bhat",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "express-ejs-layouts": "^2.5.1",
+    "mongoose": "^6.9.0"
+  }
+}
