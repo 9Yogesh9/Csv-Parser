@@ -1,21 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
+<link rel="stylesheet" href="/css/home.css">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CSV Parser</title>
-</head>
-
-<body>
-    <form action="/get_file" enctype="multipart/form-data" method="post">
-        <div class="form-group">
-            <input type="file" class="form-control-file" name="uploaded_file">
-            <input type="text" class="form-control" placeholder="Number of speakers" name="nspeakers">
-            <input type="submit" value="Get me the stats!" class="btn btn-default">
+<div class="main-container">
+    <div class="sub-container">
+        <div><h2>Upload CSV</h2></div>
+        <div class="form-holder">
+            <form action="/get_file" enctype="multipart/form-data" method="post">
+                <div class="form-group">
+                    <input type="file" class="form-control-file" name="uploaded_file">
+                    <button type="submit">Parse this CSV !</button>
+                </div>
+            </form>
         </div>
-    </form>
-</body>
+        <div class="file-list">
+        </div>
+    </div>
+</div>
 
-</html>
+
+<script src="/js/home.js"></script>
