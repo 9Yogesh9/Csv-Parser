@@ -1,23 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CSV Parser</title>
-</head>
+<link rel="stylesheet" href="/css/details.css">
 
 <body>
-<%= fileData.filename  %> 
-<%= fileData.headers %> 
-    <% for ( a of fileData.data) { %>
-        <p>
-            <% for( b in a) {%>
-                <%= a[b] %>
-                <% } %>
-        </p>
-        <% } %>
+    <h2 id="fileName"><%= fileData.filename.slice(0, -4) %></h2>
+    <div id="deleteBtn" onclick="deleteFile()"><img src="/images/deletebtn.png" alt="trash-can" srcset=""></div>
+    <div id="particles-js"></div>
+        <div class="main-container">
+            <div class="table-container">
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <% for(headers of fileData.headers) { %>
+                                <th>
+                                    <%= headers %>
+                                </th>
+                                <% } %>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <% for ( a of fileData.data) { let i=0; %>
+                            <tr>
+                                <% for( b in a) {%>
+                                    <td data-label="<%= fileData.headers[i] %>">
+                                        <%= a[b] %>
+                                    </td>
+                                    <% i++; } %>
+                            </tr>
+                            <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
 </body>
 
-</html>
+<script src="/js/details.js"></script>

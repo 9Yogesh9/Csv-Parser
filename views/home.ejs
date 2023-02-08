@@ -3,10 +3,10 @@
 <div id="particles-js"></div>
 <div class="main-container">
     <div class="sub-container">
-        <div>
+        <div class="alignMiddle">
             <h2>Upload CSV</h2>
         </div>
-        <div class="form-holder">
+        <div class="form-holder alignMiddle">
             <form action="/get_file" enctype="multipart/form-data" method="post">
                 <div class="form-group">
                     <input type="file" class="form-control-file" name="uploaded_file">
@@ -16,8 +16,7 @@
         </div>
         <div class="file-list">
             <% for(a of filesLoaded) { %>
-                <div>
-                    <%= a.id %>
+                <div class="fileName">
                     <a href='./getDetails/<%= a.id %>' target="_blank" rel="noopener noreferrer">
                         <%= a.filename.slice(0,-4) %>
                     </a>

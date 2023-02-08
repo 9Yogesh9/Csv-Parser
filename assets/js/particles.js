@@ -1491,6 +1491,8 @@ window.particlesJS = function (tag_id, params) {
     tag_id = 'particles-js';
   }
 
+  if(!document.getElementById(tag_id)) {return;}
+
   /* pJS elements */
   var pJS_tag = document.getElementById(tag_id),
     pJS_canvas_class = 'particles-js-canvas-el',
