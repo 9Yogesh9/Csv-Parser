@@ -9,15 +9,15 @@
 </head>
 
 <body>
-    <%= tableHeads %> 
-    <% details=JSON.parse(details) %>
-        <% for ( a of details) { %>
-            <p>
-                <% for( b in a) {%>
-                    <%= a[b] %>
-                    <% } %>
-            </p>
-            <% } %>
+<%= fileData.filename  %> 
+<%= fileData.headers %> 
+    <% for ( a of fileData.data) { %>
+        <p>
+            <% for( b in a) {%>
+                <%= a[b] %>
+                <% } %>
+        </p>
+        <% } %>
 </body>
 
 </html>

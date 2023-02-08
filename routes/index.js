@@ -7,7 +7,7 @@ const upload = require('../middlewares/upload');
 
 router.get('/', homeController.home);
 router.post('/get_file', upload.single('uploaded_file'), homeController.get_file);
-router.get('/getDetails/:filename', detailsController.showDetails);
+router.get('/getDetails/:id', detailsController.showDetails);
 
 
 module.exports = router;
