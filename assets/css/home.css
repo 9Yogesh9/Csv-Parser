@@ -97,15 +97,16 @@
     margin: 3px;
 }
 
+#fileLogo{
+    width: 7vh;
+    height: 7vh;
+}
+
+#fileLogo img{
+    width: 100%;
+}
+
 .fileName a{
     text-decoration: none;
-}
-.fileName a:active{
-    color: black;
-}.fileName a:link {
-    color: black;
-}.fileName a:visited {
-    color: black;
-}.fileName a:hover {
     color: black;
 }

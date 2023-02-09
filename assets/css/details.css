@@ -3,7 +3,7 @@ body {
     color: white; */
 }
 
-#fileName{
+#fileName {
     background-color: #9bff00c9;
     padding: 5px;
     position: absolute;
@@ -13,14 +13,15 @@ body {
     box-shadow: 0px 0px 3px 1px white;
 }
 
-#deleteBtn{
+#deleteBtn {
+    background-color: transparent;
     position: absolute;
-    width: 3vw;
+    width: 6vh;
     right: 2px;
     top: 2vh;
 }
 
-#deleteBtn img{
+#deleteBtn img {
     width: 100%;
 }
 
@@ -64,22 +65,37 @@ body {
     font-size: 16px;
 }
 
-.table tr{
+.table tr {
     color: #ffffffd6;
     background-color: #648bb863;
 }
 
-.table tr td:hover{
+.table tr td:hover {
     background-color: #648bb8c9;
 }
 
 .table th {
+    position: sticky;
+    top: 0vh;
     background-color: #4a416f;
     color: #f2f2f2;
     border-radius: 5px;
 }
 
-.reach_out{
+.sortBtn {
+    cursor: pointer;
+    position: absolute;
+    width: 2vw;
+    right: -7px;
+    background-image: radial-gradient(black, transparent);
+    background: transparent;
+}
+
+.sortBtn img {
+    width: 100%;
+}
+
+.reach_out {
     background-color: #3a3a3a75;
     width: 100%;
     left: 0;

@@ -9,7 +9,7 @@
         <div class="form-holder alignMiddle">
             <form action="/get_file" enctype="multipart/form-data" method="post">
                 <div class="form-group">
-                    <input type="file" class="form-control-file" name="uploaded_file">
+                    <input type="file" class="form-control-file" name="uploaded_file" required>
                     <button type="submit">Parse this CSV !</button>
                 </div>
             </form>
@@ -17,7 +17,8 @@
         <div class="file-list">
             <% for(a of filesLoaded) { %>
                 <div class="fileName">
-                    <a href='./getDetails/<%= a.id %>' target="_blank" rel="noopener noreferrer">
+                    <a href='./getDetails/<%= a.id %>' rel="noopener noreferrer">
+                        <div id="fileLogo"><img src="/images/file.png" alt="" srcset=""></div>
                         <%= a.filename.slice(0,-4) %>
                     </a>
                 </div>

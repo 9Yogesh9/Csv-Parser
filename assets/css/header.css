@@ -15,3 +15,7 @@
     color: #f0eded;
     text-shadow: 0 0px 17px #ff00aa;
 }
+
+.header_container a{
+    text-decoration: none;
+}

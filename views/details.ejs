@@ -2,37 +2,16 @@
 
 <body>
     <h2 id="fileName"><%= fileData.filename.slice(0, -4) %></h2>
-    <div id="deleteBtn" onclick="deleteFile()"><img src="/images/deletebtn.png" alt="trash-can" srcset=""></div>
+    <a href="/deleteFile/<%= fileData.id %>" ><button id="deleteBtn"> <img src="/images/deletebtn.png" alt="trash-can" srcset=""> </button></a>
     <div id="particles-js"></div>
         <div class="main-container">
             <div class="table-container">
+                <table class="table" id="tableLoad">
 
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <% for(headers of fileData.headers) { %>
-                                <th>
-                                    <%= headers %>
-                                </th>
-                                <% } %>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                        <% for ( a of fileData.data) { let i=0; %>
-                            <tr>
-                                <% for( b in a) {%>
-                                    <td data-label="<%= fileData.headers[i] %>">
-                                        <%= a[b] %>
-                                    </td>
-                                    <% i++; } %>
-                            </tr>
-                            <% } %>
-                    </tbody>
                 </table>
             </div>
         </div>
-
+<input type="text" id="fileID" hidden value="<%= fileData.id %>">
 </body>
 
 <script src="/js/details.js"></script>
