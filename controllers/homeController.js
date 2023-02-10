@@ -11,13 +11,29 @@ module.exports.home = async (req, res) => {
 }
 
 module.exports.get_file = (req, res) => {
-    parseCsv(req.file.originalname)
-        .then(() => {
-            return res.redirect("back");
-        }, (err) => {
-            console.log(`error while initial load ${err}`);
-            return res.redirect('/');
-        })
+    if (!req.file) {
+        console.log("didn't get the file !");
+
+        res.redirect('/');
+    } else {
+        parseCsv(req.file.originalname)
+            .then(() => {
+                console.log("got till here !");
+
+                if (req.xhr) {
+                    return res.status(200).json({
+                        filename: req.file.originalname.slice(0, -4),
+                        message: "Data Parsed Successfully !"
+                    })
+                }
+
+                return res.redirect("back");
+            }, (err) => {
+                console.log(`error while initial load ${err}`);
+                return res.redirect('/');
+            })
+    }
+
 };
 
 async function parseCsv(filename) {

@@ -1,15 +1,16 @@
 let tableLoad = $('#tableLoad');
 let dataHolder = [];
 let dataHeaders = [];
+let reg_num = /^-?[0-9]\d*(\.\d+)?$/;
 
 function getData() {
     let fileID = $('#fileID').val();
 
     $.ajax({
-        type:'get',
+        type: 'get',
         url: `/getDetails/${fileID}`,
-        success:(data)=>{
-            let {fileData} = data;
+        success: (data) => {
+            let { fileData } = data;
             console.log(fileData);
 
             dataHolder = fileData.data;
@@ -18,7 +19,7 @@ function getData() {
             pasteHeaders();
             pasteRows();
 
-        },error:(error)=>{
+        }, error: (error) => {
             console.log(error.responseText);
         }
     })
@@ -27,10 +28,10 @@ function getData() {
 
 getData();
 
-function pasteHeaders(){
+function pasteHeaders() {
     let prepareHeaders = '<thead>';
 
-    for(h of dataHeaders){
+    for (h of dataHeaders) {
         prepareHeaders += `<th> ${h} 
         <button class="sortBtn" onclick="sortCol('${h}')"><img src="/images/sort.png" alt="sort" srcset=""></button>
         </th>`
@@ -41,38 +42,53 @@ function pasteHeaders(){
     tableLoad.append(prepareHeaders);
 }
 
-function pasteRows(sortBool){
+function pasteRows(sortBool) {
     let tableBody = ``;
-    console.log("triggered");
-    
-    if(!sortBool)
+
+    if (!sortBool)
         tableBody = `<tbody id="tableBody">`;
-    
-    for(a of dataHolder){
+
+    for (a of dataHolder) {
         let i = 0;
         tableBody += `<tr>`;
-        for(b in a){
+        for (b in a) {
             tableBody += `<td data-label="${dataHeaders[i]}">${a[b]}</td>`
         }
         tableBody += `</tr>`;
     }
 
-    if(!sortBool){
+    if (!sortBool) {
         tableBody += `</tbody>`;
         tableLoad.append(tableBody);
-    }else{
+    } else {
         $('#tableBody').append(tableBody);
     }
 
 }
 
-function sortCol(head){
-    dataHolder = dataHolder.sort(function(a,b) {
-        console.log(a.head, b.head)
-        return a.head - b.head;
-    });
-    // console.log("sort_me", dataHolder);
+function sortCol(head) {
+    let ifNum = reg_num.test(dataHolder[0][head]);
+    dataHolder = sortBy(dataHolder, head, ifNum);
 
     $("#tableBody").empty();
     pasteRows(true);
+}
+
+function sortBy(jsonArray, key, ifNum) {
+    if (jsonArray) {
+        let sortedArray = jsonArray.sort(function (left, right) {
+            let a = left[key];
+            let b = right[key];
+            if (ifNum) {
+                a = parseFloat(a);
+                b = parseFloat(b);
+            }
+            if (a !== b) {
+                if (a > b || a === void 0) return 1;
+                if (a < b || b === void 0) return -1;
+            }
+            return 0;
+        });
+        return sortedArray;
+    }
 }
