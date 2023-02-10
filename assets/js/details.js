@@ -2,6 +2,7 @@ let tableLoad = $('#tableLoad');
 let dataHolder = [];
 let dataHeaders = [];
 let reg_num = /^-?[0-9]\d*(\.\d+)?$/;
+let current_page = 0;
 
 function getData() {
     let fileID = $('#fileID').val();
@@ -15,6 +16,10 @@ function getData() {
 
             dataHolder = fileData.data;
             dataHeaders = fileData.headers;
+
+            if(dataHolder.length <= 100){
+                $('.page_navigation').hide();
+            }
 
             pasteHeaders();
             pasteRows();
@@ -45,16 +50,22 @@ function pasteHeaders() {
 function pasteRows(sortBool) {
     let tableBody = ``;
 
+    $('#page_no').html(`Page no : ${current_page+1}`);
+
     if (!sortBool)
         tableBody = `<tbody id="tableBody">`;
 
-    for (a of dataHolder) {
+    let record_count = 0;
+
+    for (let track = current_page * 100; track < dataHolder.length; track++) {
+        record_count++;
         let i = 0;
         tableBody += `<tr>`;
-        for (b in a) {
-            tableBody += `<td data-label="${dataHeaders[i]}">${a[b]}</td>`
+        for (b in dataHolder[track]) {
+            tableBody += `<td data-label="${dataHeaders[i]}">${dataHolder[track][b]}</td>`
         }
         tableBody += `</tr>`;
+        if (record_count == 100) { break; }
     }
 
     if (!sortBool) {
@@ -91,4 +102,32 @@ function sortBy(jsonArray, key, ifNum) {
         });
         return sortedArray;
     }
+}
+
+function startPage() {
+    current_page = 0;
+    $("#tableBody").empty();
+    pasteRows(true);
+}
+
+function nextPage() {
+    if ((current_page + 1) * 100 < dataHolder.length) {
+        current_page++;
+        $("#tableBody").empty();
+        pasteRows(true);
+    }
+}
+
+function prevPage() {
+    if (current_page - 1 >= 0) {
+        current_page--;
+        $("#tableBody").empty();
+        pasteRows(true);
+    }
+}
+
+function endPage() {
+    current_page = parseInt(dataHolder.length / 100)-1;
+    $("#tableBody").empty();
+    pasteRows(true);
 }

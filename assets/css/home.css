@@ -62,7 +62,7 @@
     cursor: pointer;
 }
 
-.form-group button {
+#submit {
     padding: 5px;
     background-color: #4be3f2;
     font-size: 12pt;

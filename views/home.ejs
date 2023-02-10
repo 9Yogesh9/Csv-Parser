@@ -7,12 +7,10 @@
             <h2>Upload CSV</h2>
         </div>
         <div class="form-holder alignMiddle">
-            <form action="/get_file" enctype="multipart/form-data" method="post">
-            <!-- <form action="" enctype="multipart/form-data" method="" id="fileCreate"> -->
+            <form action="/get_file" enctype="multipart/form-data" method="post" id="fileCreate">
                 <div class="form-group">
-                    <input type="file" class="form-control-file" name="uploaded_file" required>
-                    <button type="submit">Parse this CSV !</button>
-                    <!-- <button type="submit" onclick="submitForm()">Parse this CSV !</button> -->
+                    <input type="file" class="form-control-file" name="uploaded_file" id="uploaded_file" required>
+                    <input type="submit" value="Parse this CSV !" id="submit" name="submit">
                 </div>
             </form>
         </div>

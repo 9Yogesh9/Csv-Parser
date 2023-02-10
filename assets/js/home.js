@@ -1,22 +1,15 @@
-// function submitForm(){
-//     let fileCreate = $('#fileCreate');
-    
-//     fileCreate.submit((e) => {
-//         console.log("tried submitting !");
-//         e.preventDefault();
-//         $.ajax({
-//             type: 'post',
-//             url: '/get_file',
-//             data: fileCreate.serialize(),
-//             success: (data) => {
-//                 console.log("file",data);
-//                 // paste_new_project(data.data.project);
-//                 // toggle_form();
-//                 // $(newProjectForm).trigger("reset");
-//             },
-//             error: (error) => { console.log(error.responseText); }
-//         })
-//     })
-// }
+$(function () {
+    $('#fileCreate').submit(() => {
 
-// submitForm();
+        let file = $('#uploaded_file').val();
+        if (file.slice(-4) !== '.csv') {
+            $('#uploaded_file').val('');
+            alert("Incorrect file format detected. Please upload only CSV files !")
+            return false;
+        } else {
+            $('#uploaded_file').val('');
+            return true;
+        }
+
+    })
+})

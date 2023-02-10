@@ -16,27 +16,12 @@ module.exports.get_file = (req, res) => {
 
         res.redirect('/');
     } else {
-        parseCsv(req.file.originalname)
-            .then(() => {
-                console.log("got till here !");
-
-                if (req.xhr) {
-                    return res.status(200).json({
-                        filename: req.file.originalname.slice(0, -4),
-                        message: "Data Parsed Successfully !"
-                    })
-                }
-
-                return res.redirect("back");
-            }, (err) => {
-                console.log(`error while initial load ${err}`);
-                return res.redirect('/');
-            })
+        parseCsv(req.file.originalname, res);
     }
 
 };
 
-async function parseCsv(filename) {
+function parseCsv(filename, res) {
     let results = [];
     let tableHeads = [];
 
@@ -44,7 +29,10 @@ async function parseCsv(filename) {
 
         CsvStorage.findOne({ filename }, function (error, fileBool) {
             if (fileBool) {
+
                 console.log(`File with same filename already exists !`);
+                deleteAndRedirect(filename, res);
+
             } else {
                 fs.createReadStream(`./public/data/uploads/${filename}`)
                     .pipe(csv())
@@ -57,13 +45,7 @@ async function parseCsv(filename) {
                             data: results
                         });
 
-                        fs.unlink(`./public/data/uploads/${filename}`, (err) => {
-                            if (err) {
-                                console.log(`Error while deleting the file ${err}`);
-                                return;
-                            }
-                            console.log(`File deleted Succesfully ${filename}`);
-                        })
+                        deleteAndRedirect(filename, res);
                     });
             }
         })
@@ -73,4 +55,16 @@ async function parseCsv(filename) {
     } catch (error) {
         console.log(`Error in parsing the file ${error}`);
     }
+}
+
+function deleteAndRedirect(filename, res) {
+    fs.unlink(`./public/data/uploads/${filename}`, (err) => {
+        if (err) {
+            console.log(`Error while deleting the file ${err}`);
+            return;
+        }
+        console.log(`File deleted Succesfully ${filename}`);
+    })
+
+    return res.redirect("/");
 }

@@ -14,6 +14,7 @@ body {
 }
 
 #deleteBtn {
+    cursor: pointer;
     background-color: transparent;
     position: absolute;
     width: 6vh;
@@ -96,11 +97,14 @@ body {
 }
 
 .reach_out {
+    display: flex;
     background-color: #3a3a3a75;
     width: 100%;
+    height: 5vh;
     left: 0;
     padding: 6px;
     bottom: 0px;
+    justify-content: space-around;
 }
 
 @media(max-width: 500px) {
@@ -137,4 +141,40 @@ body {
         font-weight: bold;
         text-align: left;
     }
+}
+
+.page_navigation {
+    display: flex;
+    width: 15vw;
+    height: 4vh;
+    position: absolute;
+    bottom: 4px;
+    left: 45%;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 1;
+}
+
+.page_navigation div {
+    cursor: pointer;
+    border: 2px solid #2d6246;
+    padding: 5px;
+    background-color: #84c9c28a;
+    border-radius: 7px;
+}
+
+.page_navigation div:hover {
+    border: 2px solid #70e9a9;
+    color: #e9e2e2;
+    background-color: #53847f8a;
+}
+
+#page_no {
+    position: absolute;
+    z-index: 1;
+    right: 5vw;
+    bottom: 1vh;
+    font-family: cursive;
+    color: #fbfbfb;
+    text-shadow: 0px 0px 5px #161616;
 }
