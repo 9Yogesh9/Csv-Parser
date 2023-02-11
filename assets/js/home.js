@@ -7,7 +7,6 @@ $(function () {
             alert("Incorrect file format detected. Please upload only CSV files !")
             return false;
         } else {
-            $('#uploaded_file').val('');
             return true;
         }
 

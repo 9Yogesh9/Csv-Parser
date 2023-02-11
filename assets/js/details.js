@@ -17,7 +17,7 @@ function getData() {
             dataHolder = fileData.data;
             dataHeaders = fileData.headers;
 
-            if(dataHolder.length <= 100){
+            if (dataHolder.length <= 100) {
                 $('.page_navigation').hide();
             }
 
@@ -37,9 +37,7 @@ function pasteHeaders() {
     let prepareHeaders = '<thead>';
 
     for (h of dataHeaders) {
-        prepareHeaders += `<th> ${h} 
-        <button class="sortBtn" onclick="sortCol('${h}')"><img src="/images/sort.png" alt="sort" srcset=""></button>
-        </th>`
+        prepareHeaders += `<th onclick="sortCol('${h}')"> ${h} </th>`
     }
 
     prepareHeaders += `</thead>`;
@@ -50,7 +48,7 @@ function pasteHeaders() {
 function pasteRows(sortBool) {
     let tableBody = ``;
 
-    $('#page_no').html(`Page no : ${current_page+1}`);
+    $('#page_no').html(`Page no : ${current_page + 1}`);
 
     if (!sortBool)
         tableBody = `<tbody id="tableBody">`;
@@ -62,7 +60,7 @@ function pasteRows(sortBool) {
         let i = 0;
         tableBody += `<tr>`;
         for (b in dataHolder[track]) {
-            tableBody += `<td data-label="${dataHeaders[i]}">${dataHolder[track][b]}</td>`
+            tableBody += `<td data-label="${dataHeaders[i++]}">${dataHolder[track][b]}</td>`
         }
         tableBody += `</tr>`;
         if (record_count == 100) { break; }
@@ -127,7 +125,48 @@ function prevPage() {
 }
 
 function endPage() {
-    current_page = parseInt(dataHolder.length / 100)-1;
+    current_page = parseInt(dataHolder.length / 100) - 1;
     $("#tableBody").empty();
     pasteRows(true);
+}
+
+$(function () {
+    $('#searchBox').submit((e) => {
+
+        e.preventDefault();
+        let header = dataHeaders[1];
+        let searchKey = $('#searchText').val().toLowerCase();
+        if (searchKey) {
+            let searchData = dataHolder.filter((entry) => {
+                return entry[header].toLowerCase().includes(searchKey);
+            })
+            $('.page_navigation').hide();
+            pasteSearchedRows(searchData);
+        } else {
+            $('#tableBody').empty();
+            if(dataHolder.length > 100)
+                $('.page_navigation').show();
+            current_page = 0;
+            pasteRows(true);
+        }
+    })
+})
+
+function pasteSearchedRows(searchData) {
+    let tableBody = ``;
+    $('#tableBody').empty();
+
+    // for (let track = current_page * 100; track < dataHolder.length; track++) 
+    for (track of searchData) {
+        let i = 0;
+        tableBody += `<tr>`;
+        for (b in track) {
+            tableBody += `<td data-label="${dataHeaders[i++]}">${track[b]}</td>`
+        }
+        tableBody += `</tr>`;
+    }
+
+    $('#tableBody').append(tableBody);
+    $('#page_no').html(`Total Records Found : ${searchData.length}`);
+
 }

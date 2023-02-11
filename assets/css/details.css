@@ -4,13 +4,38 @@ body {
 }
 
 #fileName {
-    background-color: #9bff00c9;
+    /* background-color: #9bff00c9; */
+    background-image: linear-gradient(45deg, #7ac539, #06fff0f0);
     padding: 5px;
     position: absolute;
     top: 2vh;
     margin-left: 3px;
     border-radius: 0px 10px 10px 0px;
-    box-shadow: 0px 0px 3px 1px white;
+    box-shadow: inset 0px 0px 3px 3px #10ff00;
+}
+
+.search_container{
+    /* background-color: pink; */
+    position: absolute;
+    top: 3vh;
+    right: 5vw;
+}
+
+#searchText{
+    background: none;
+    border: none;
+    padding: 5px;
+    border-bottom: 3px solid #dc1212;
+    box-shadow: -3px 9px 10px -8px #ff740ede;
+    color: rgb(242, 241, 241);
+    margin-right: 5px;
+    outline: none;
+    font-family: cursive;
+}
+
+#searchText::placeholder{
+    color: rgb(192, 192, 188);
+    opacity: 0.8;
 }
 
 #deleteBtn {
@@ -80,20 +105,7 @@ body {
     top: 0vh;
     background-color: #4a416f;
     color: #f2f2f2;
-    border-radius: 5px;
-}
-
-.sortBtn {
     cursor: pointer;
-    position: absolute;
-    width: 2vw;
-    right: -7px;
-    background-image: radial-gradient(black, transparent);
-    background: transparent;
-}
-
-.sortBtn img {
-    width: 100%;
 }
 
 .reach_out {
@@ -156,17 +168,31 @@ body {
 }
 
 .page_navigation div {
-    cursor: pointer;
+    /* cursor: pointer;
     border: 2px solid #2d6246;
     padding: 5px;
     background-color: #84c9c28a;
+    border-radius: 7px; */
+
+    cursor: pointer;
+    border: 2px solid #2d6246;
+    padding: 5px;
+    /* background-color: #df2592d1; */
+    background-image: linear-gradient(0deg, #e9ff08, #09ddcd);
     border-radius: 7px;
+    transition: all 0.5s;    
 }
 
 .page_navigation div:hover {
-    border: 2px solid #70e9a9;
+    /* border: 2px solid #70e9a9;
     color: #e9e2e2;
-    background-color: #53847f8a;
+    background-color: #53847f8a; */
+
+    border: 2px solid #545bd0;
+    background-image: linear-gradient(180deg, #e9ff08, #09ddcd);
+    /* color: #e9e2e2; */
+    /* background-color: #53847f8a;*/
+    transition: all 0.5s;  
 }
 
 #page_no {

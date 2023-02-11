@@ -2,6 +2,12 @@
 
 <body>
     <h2 id="fileName"><%= fileData.filename.slice(0, -4) %></h2>
+    <div class="search_container">
+        <form action="" id="searchBox">
+            <input type="text" name="searchText" id="searchText" placeholder="Search for..."/>
+            <input type="submit" value="Search">
+        </form>
+    </div>
     <a href="/deleteFile/<%= fileData.id %>" ><button id="deleteBtn"> <img src="/images/deletebtn.png" alt="trash-can" srcset=""> </button></a>
     <div id="particles-js"></div>
         <div class="main-container">
