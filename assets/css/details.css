@@ -106,6 +106,29 @@ body {
     background-color: #4a416f;
     color: #f2f2f2;
     cursor: pointer;
+    box-shadow: inset 0px 0px 16px 5px black;
+}
+
+.sortButtons{
+    /* background-color: antiquewhite; */
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    z-index: 2;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+.sortAsc{
+    /* background-color: #256225; */
+    width: 2rem;
+}
+
+.sortDec{
+    /* background-color: #da4e20; */
+    width: 2rem;
 }
 
 .reach_out {

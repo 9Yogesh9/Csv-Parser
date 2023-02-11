@@ -1,4 +1,5 @@
 let tableLoad = $('#tableLoad');
+let untouchedData = [];
 let dataHolder = [];
 let dataHeaders = [];
 let reg_num = /^-?[0-9]\d*(\.\d+)?$/;
@@ -12,7 +13,7 @@ function getData() {
         url: `/getDetails/${fileID}`,
         success: (data) => {
             let { fileData } = data;
-            console.log(fileData);
+            // console.log(fileData);
 
             dataHolder = fileData.data;
             dataHeaders = fileData.headers;
@@ -23,6 +24,8 @@ function getData() {
 
             pasteHeaders();
             pasteRows();
+
+            untouchedData = dataHolder.map((a) => a);
 
         }, error: (error) => {
             console.log(error.responseText);
@@ -37,7 +40,13 @@ function pasteHeaders() {
     let prepareHeaders = '<thead>';
 
     for (h of dataHeaders) {
-        prepareHeaders += `<th onclick="sortCol('${h}')"> ${h} </th>`
+        prepareHeaders += `<th>
+        <div class="sortButtons"> 
+            <div class="sortAsc" onclick="sortCol('${h}',true)"></div> 
+            <div class="sortDec" onclick="sortCol('${h}',false)"></div> 
+        </div>
+            ${h} 
+        </th>`;
     }
 
     prepareHeaders += `</thead>`;
@@ -75,15 +84,17 @@ function pasteRows(sortBool) {
 
 }
 
-function sortCol(head) {
+function sortCol(head, ifAsc) {
+    console.log("If Ascending ", ifAsc);
     let ifNum = reg_num.test(dataHolder[0][head]);
-    dataHolder = sortBy(dataHolder, head, ifNum);
+    dataHolder = sortBy(dataHolder, head, ifNum, ifAsc);
 
     $("#tableBody").empty();
+    current_page = 0;
     pasteRows(true);
 }
 
-function sortBy(jsonArray, key, ifNum) {
+function sortBy(jsonArray, key, ifNum, ifAsc) {
     if (jsonArray) {
         let sortedArray = jsonArray.sort(function (left, right) {
             let a = left[key];
@@ -92,11 +103,20 @@ function sortBy(jsonArray, key, ifNum) {
                 a = parseFloat(a);
                 b = parseFloat(b);
             }
-            if (a !== b) {
-                if (a > b || a === void 0) return 1;
-                if (a < b || b === void 0) return -1;
+
+            if (ifAsc) {
+                if (a !== b) {
+                    if (a > b || a === void 0) return 1;
+                    if (a < b || b === void 0) return -1;
+                }
+                return 0;
+            } else {
+                if (a !== b) {
+                    if (a > b || a === void 0) return -1;
+                    if (a < b || b === void 0) return 1;
+                }
+                return 0;
             }
-            return 0;
         });
         return sortedArray;
     }
@@ -137,36 +157,25 @@ $(function () {
         let header = dataHeaders[1];
         let searchKey = $('#searchText').val().toLowerCase();
         if (searchKey) {
-            let searchData = dataHolder.filter((entry) => {
+            dataHolder = untouchedData.filter((entry) => {
                 return entry[header].toLowerCase().includes(searchKey);
             })
-            $('.page_navigation').hide();
-            pasteSearchedRows(searchData);
-        } else {
+
             $('#tableBody').empty();
-            if(dataHolder.length > 100)
-                $('.page_navigation').show();
+            current_page = 0;
+            if (dataHolder.length < 100) {
+                $('.page_navigation').hide();
+            }
+            pasteRows(true);
+
+        } else {
+
+            $('#tableBody').empty();
+            dataHolder = untouchedData.map((a) => a);
+            $('.page_navigation').show();
             current_page = 0;
             pasteRows(true);
+
         }
     })
 })
-
-function pasteSearchedRows(searchData) {
-    let tableBody = ``;
-    $('#tableBody').empty();
-
-    // for (let track = current_page * 100; track < dataHolder.length; track++) 
-    for (track of searchData) {
-        let i = 0;
-        tableBody += `<tr>`;
-        for (b in track) {
-            tableBody += `<td data-label="${dataHeaders[i++]}">${track[b]}</td>`
-        }
-        tableBody += `</tr>`;
-    }
-
-    $('#tableBody').append(tableBody);
-    $('#page_no').html(`Total Records Found : ${searchData.length}`);
-
-}
