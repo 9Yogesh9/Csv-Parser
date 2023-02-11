@@ -1,5 +1,6 @@
 const CsvStorage = require('../models/csvStore');
 
+// Sending file details during inital load of data to frontend
 module.exports.showDetails = async (req, res) => {
 
     try {
@@ -22,6 +23,7 @@ module.exports.showDetails = async (req, res) => {
 
 }
 
+// Deleting the file from DB
 module.exports.deleteFile = async (req, res) => {
 
     await CsvStorage.findByIdAndDelete(req.params.id);

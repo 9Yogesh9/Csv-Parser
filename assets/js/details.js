@@ -1,10 +1,11 @@
 let tableLoad = $('#tableLoad');
-let untouchedData = [];
-let dataHolder = [];
-let dataHeaders = [];
-let reg_num = /^-?[0-9]\d*(\.\d+)?$/;
-let current_page = 0;
+let untouchedData = [];             //To maintain the loaded data intact
+let dataHolder = [];                //To use data across the functions
+let dataHeaders = [];               //To store the file headers
+let reg_num = /^-?[0-9]\d*(\.\d+)?$/;   //Regex to check positive, negative, decimal numbers
+let current_page = 0;               //To keep track of the pages (used for pagination)
 
+// Get file details on load
 function getData() {
     let fileID = $('#fileID').val();
 
@@ -13,7 +14,6 @@ function getData() {
         url: `/getDetails/${fileID}`,
         success: (data) => {
             let { fileData } = data;
-            // console.log(fileData);
 
             dataHolder = fileData.data;
             dataHeaders = fileData.headers;
@@ -150,6 +150,7 @@ function endPage() {
     pasteRows(true);
 }
 
+// Funtion to search the data across second coloum of every file
 $(function () {
     $('#searchBox').submit((e) => {
 

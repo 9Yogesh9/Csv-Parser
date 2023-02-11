@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require('express');
 const expressEjsLayouts = require('express-ejs-layouts');
 const port = 8000;

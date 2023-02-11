@@ -1,3 +1,5 @@
+// JS FOR PARTICLE JS
+
 /* -----------------------------------------------
 /* Author : Vincent Garreau  - vincentgarreau.com
 /* MIT license: http://opensource.org/licenses/MIT

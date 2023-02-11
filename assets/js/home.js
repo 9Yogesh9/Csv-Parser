@@ -1,3 +1,4 @@
+// Initial check to let user only submit the csv file
 $(function () {
     $('#fileCreate').submit(() => {
 

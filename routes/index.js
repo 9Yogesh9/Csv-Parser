@@ -3,6 +3,7 @@ const router = express.Router();
 const homeController = require('../controllers/homeController');
 const detailsController = require('../controllers/detailsController');
 
+// CSV parser used as middleware
 const upload = require('../middlewares/upload');
 
 router.get('/', homeController.home);

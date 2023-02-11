@@ -2,6 +2,7 @@ const CsvStorage = require('../models/csvStore');
 const csv = require('csv-parser');
 const fs = require('fs');
 
+// Initial homepage load : Send filename and id for the loaded files
 module.exports.home = async (req, res) => {
     let filesLoaded = await CsvStorage.find({}, 'filename id');
 
@@ -10,11 +11,13 @@ module.exports.home = async (req, res) => {
     });
 }
 
+// Create file -> Parse CSV -> Store as JSON in DB -> Delete file to release the server memory  
 module.exports.get_file = (req, res) => {
     if (!req.file) {
-        console.log("didn't get the file !");
 
+        console.log("Didn't get the file !");
         res.redirect('/');
+
     } else {
         parseCsv(req.file.originalname, res);
     }
@@ -30,6 +33,7 @@ function parseCsv(filename, res) {
         CsvStorage.findOne({ filename }, function (error, fileBool) {
             if (fileBool) {
 
+                // Not allowing to create files with duplicate name
                 console.log(`File with same filename already exists !`);
                 deleteAndRedirect(filename, res);
 
@@ -50,13 +54,12 @@ function parseCsv(filename, res) {
             }
         })
 
-
-
     } catch (error) {
         console.log(`Error in parsing the file ${error}`);
     }
 }
 
+// Delete file and redirect to homepage to show updated filenames in storage 
 function deleteAndRedirect(filename, res) {
     fs.unlink(`./public/data/uploads/${filename}`, (err) => {
         if (err) {
