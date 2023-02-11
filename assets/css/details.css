@@ -31,6 +31,19 @@
     opacity: 0.8;
 }
 
+#searchBtn{
+    background: #794783;
+    color: white;
+    border-radius: 5px;
+    padding: 5px;
+    border: 2px solid #ffc0cb00;
+    cursor: pointer;
+}
+
+#searchBtn:hover{
+    border:2px solid rgb(255, 192, 203);
+}
+
 #deleteBtn {
     cursor: pointer;
     background-color: transparent;
@@ -98,7 +111,6 @@
     top: 0vh;
     background-color: #4a416f;
     color: #f2f2f2;
-    cursor: pointer;
     box-shadow: inset 0px 0px 16px 5px black;
 }
 
@@ -114,10 +126,12 @@
 }
 
 .sortAsc{
+    cursor: pointer;
     width: 2rem;
 }
 
 .sortDec{
+    cursor: pointer;
     width: 2rem;
 }
 
