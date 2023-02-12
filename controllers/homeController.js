@@ -21,8 +21,13 @@ module.exports.get_file = (req, res) => {
         res.redirect('/');
 
     } else {
-        console.log(req.files.uploaded_file);
-        parseCsv(req.files.uploaded_file, req.files.uploaded_file.originalFilename, res);
+        let {uploaded_file} = req.files;
+
+        if(uploaded_file.headers['content-type'] !== 'text/csv'){
+            deleteAndRedirect(uploaded_file, uploaded_file.originalFilename, res);
+        }
+        
+        parseCsv(uploaded_file, uploaded_file.originalFilename, res);
     }
 
 };
@@ -41,8 +46,6 @@ function parseCsv(req, filename, res) {
                 deleteAndRedirect(req, filename, res);
 
             } else {
-                // fs.createReadStream(`${tempFilePath}/${filename}`)
-                console.log("Inside else block ! ");
                 fs.createReadStream(req.path)
                     .pipe(csv())
                     .on('headers', (headers) => { tableHeads = headers; })
@@ -53,8 +56,9 @@ function parseCsv(req, filename, res) {
                             headers: tableHeads,
                             data: results
                         });
-                        // res.redirect('/')
+
                         deleteAndRedirect(req, filename, res);
+                        
                     });
             }
         })

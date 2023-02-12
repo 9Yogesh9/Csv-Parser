@@ -172,7 +172,9 @@ $(function () {
 
             $('#tableBody').empty();
             dataHolder = untouchedData.map((a) => a);
-            $('.page_navigation').show();
+            if (dataHolder.length > 100) {
+                $('.page_navigation').show();
+            }
             current_page = 0;
             pasteRows(true);
 
