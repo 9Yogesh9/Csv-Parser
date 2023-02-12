@@ -1,8 +1,11 @@
 // CSV parser exported to use as middleware
 const multer = require('multer');
+const os = require('os');
+const tempFilePath = os.tmpdir();
+
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, './public/data/uploads')
+        cb(null, `${tempFilePath}`);
     },
     filename: function (req, file, cb) {
         cb(null, file.originalname)

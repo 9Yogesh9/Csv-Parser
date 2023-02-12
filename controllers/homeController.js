@@ -1,6 +1,8 @@
 const CsvStorage = require('../models/csvStore');
 const csv = require('csv-parser');
 const fs = require('fs');
+const os = require('os');
+const tempFilePath = os.tmpdir();
 
 // Initial homepage load : Send filename and id for the loaded files
 module.exports.home = async (req, res) => {
@@ -38,7 +40,7 @@ function parseCsv(filename, res) {
                 deleteAndRedirect(filename, res);
 
             } else {
-                fs.createReadStream(`./public/data/uploads/${filename}`)
+                fs.createReadStream(`${tempFilePath}/${filename}`)
                     .pipe(csv())
                     .on('headers', (headers) => { tableHeads = headers; })
                     .on('data', (data) => results.push(data))
@@ -56,12 +58,13 @@ function parseCsv(filename, res) {
 
     } catch (error) {
         console.log(`Error in parsing the file ${error}`);
+        return res.redirect('/');
     }
 }
 
 // Delete file and redirect to homepage to show updated filenames in storage 
 function deleteAndRedirect(filename, res) {
-    fs.unlink(`./public/data/uploads/${filename}`, (err) => {
+    fs.unlink(`${tempFilePath}/${filename}`, (err) => {
         if (err) {
             console.log(`Error while deleting the file ${err}`);
             return;

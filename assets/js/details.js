@@ -85,7 +85,6 @@ function pasteRows(sortBool) {
 }
 
 function sortCol(head, ifAsc) {
-    console.log("If Ascending ", ifAsc);
     let ifNum = reg_num.test(dataHolder[0][head]);
     dataHolder = sortBy(dataHolder, head, ifNum, ifAsc);
 

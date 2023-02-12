@@ -1,6 +1,6 @@
-# Project CSV Parser <a href="" target="_blank"> Live App</a>
+# Project CSV Parser <a href="https://csv-parser-v53b.onrender.com/" target="_blank"> Live App</a>
 
-<p>This app will help you <strong>Parse and Display the data for CSV files</strong>. <a href="" target="_blank"> Check it out !</a><p>
+<p>This app will help you <strong>Parse and Display the data for CSV files</strong>. <a href="https://csv-parser-v53b.onrender.com/" target="_blank"> Check it out !</a><p>
 <p>Following are the features of this app:</p>
 
 <ol>
@@ -57,7 +57,7 @@
  </li>
 </ol>
 
-<h2><a href="" target="_blank">Explore in real !</a></h2> This will open the live hosted application
+<h2><a href="https://csv-parser-v53b.onrender.com/" target="_blank">Explore in real !</a></h2> This will open the live hosted application
 
 <h2>Prerequisites:</h2>
   <ol>
