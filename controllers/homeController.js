@@ -15,18 +15,19 @@ module.exports.home = async (req, res) => {
 
 // Create file -> Parse CSV -> Store as JSON in DB -> Delete file to release the server memory  
 module.exports.get_file = (req, res) => {
-    if (!req.file) {
+    if (!req.files) {
 
         console.log("Didn't get the file !");
         res.redirect('/');
 
     } else {
-        parseCsv(req.file.originalname, res);
+        console.log(req.files.uploaded_file);
+        parseCsv(req.files.uploaded_file, req.files.uploaded_file.originalFilename, res);
     }
 
 };
 
-function parseCsv(filename, res) {
+function parseCsv(req, filename, res) {
     let results = [];
     let tableHeads = [];
 
@@ -37,10 +38,12 @@ function parseCsv(filename, res) {
 
                 // Not allowing to create files with duplicate name
                 console.log(`File with same filename already exists !`);
-                deleteAndRedirect(filename, res);
+                deleteAndRedirect(req, filename, res);
 
             } else {
-                fs.createReadStream(`${tempFilePath}/${filename}`)
+                // fs.createReadStream(`${tempFilePath}/${filename}`)
+                console.log("Inside else block ! ");
+                fs.createReadStream(req.path)
                     .pipe(csv())
                     .on('headers', (headers) => { tableHeads = headers; })
                     .on('data', (data) => results.push(data))
@@ -50,8 +53,8 @@ function parseCsv(filename, res) {
                             headers: tableHeads,
                             data: results
                         });
-
-                        deleteAndRedirect(filename, res);
+                        // res.redirect('/')
+                        deleteAndRedirect(req, filename, res);
                     });
             }
         })
@@ -63,8 +66,8 @@ function parseCsv(filename, res) {
 }
 
 // Delete file and redirect to homepage to show updated filenames in storage 
-function deleteAndRedirect(filename, res) {
-    fs.unlink(`${tempFilePath}/${filename}`, (err) => {
+function deleteAndRedirect(req, filename, res) {
+    fs.unlink(req.path, (err) => {
         if (err) {
             console.log(`Error while deleting the file ${err}`);
             return;
